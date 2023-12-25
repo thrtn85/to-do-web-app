@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{# Load the tag library #}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{% block title %}TODO{% endblock title %}
+{% block content %}
+     <div class="container">
+          <ul class="nav">
+               <h1>TODO LIST</h1>
+          </ul>
+
+          <!--Add Task Form-->
+          <div class="row" >
+               <div class="col">
+                    <form method="POST" class="form">
+                         {% csrf_token %}
+     
+                         <div class="input-group align-items-start ">
+                              
+                              {% for field in form %}
+                              <div class="">
+                                   {% bootstrap_field field show_label=False wrapper_class="col" addon_after_class="None"  %}
+                              </div>
+                              <div class="ms-2">
+                                   {% bootstrap_button "Submit" button_type="submit" button_class="btn-primary" %}
+                              </div>
+                              {% endfor %}
+                         </div>
+                    </form>
+               </div>
+          </div>
+          
+          <!--Task List-->
+          <div class="row">
+               <div class="col">
+                    {% for i in list %}
+                         <div class="card my-3">
+                              <div class="card-body">
+                                   <p>{{i.create_date}}</p>
+                                   
+                                   <p>{{i.task}}</p>
+
+                                   <form action="/del/{{i.id}}" method="POST" class="form">
+                                        {% csrf_token %}
+
+                                        <button value="remove" type="submit" class="btn btn-danger" style="float: right;"><span class="glyphicon glyphicon-trash"></span>  remove</button>
+                                   </form>
+                              </div>
+                         </div>
+                    {% endfor%}
+               </div>
+               
+               
+          </div>
+     </div>
+{% endblock content %}
