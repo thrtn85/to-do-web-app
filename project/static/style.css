@@ -40,9 +40,9 @@ li {
 .card {
      background-color: #202020;
 }
-.detail {
+/* .detail {
      background-color: yellow;
-}
+} */
 input.form-control {
      background-color: #202020;
      border: #696969;
